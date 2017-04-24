@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h> // Pull in the SDL definitions
 #include <memory>     // Pull in std::shared_ptr
-#include <SDL2/SDL_tff.h>
+#include <SDL2/SDL_ttf.h>
 
 using namespace std;  // So that we can write `vector` rather than `std::vector`
 

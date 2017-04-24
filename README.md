@@ -18,7 +18,7 @@ your system.  The easiest way to compile is to use a command-line
 
 ```bash
 $ g++ -c -std=c++11 src/*.cpp
-$ g++ -o 'Starship Fontana' *.o -lSDL2 -lSDL2_image -lSDL2_mixer
+$ g++ -o 'Starship Fontana' *.o -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 ```
 
 which will produce an executable file called "starship" in the

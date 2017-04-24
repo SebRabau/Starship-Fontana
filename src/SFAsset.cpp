@@ -230,8 +230,4 @@ void SFAsset::HandleCollision() {
    SetNotAlive();
  }
 
- void SFAsset::ScreenWrite(string myText, SDL_Color text_color) {
-   SDL_Surface *text;
-   font = TTF_OpenFont("FreeSans.ttf", 24);
-   text = TTF_RenderText_Solid(font, myText, text_color);
- }
+ 

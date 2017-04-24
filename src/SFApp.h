@@ -29,6 +29,7 @@ public:
   void    OnUpdateWorld();
   void    OnRender();
   void    FireProjectile();
+  void    ScreenWrite(string, SDL_Color);
 private:
   bool                    is_running;
 

@@ -7,7 +7,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_tff.h>
+#include <SDL2/SDL_ttf.h>
 
 using namespace std;
 
@@ -47,7 +47,6 @@ public:
   virtual void      SetNotAlive();
   virtual bool      IsAlive();
   virtual void      HandleCollision();
-  //virtual void      ScreenWrite(string, SDL_Color);
   virtual bool                      CollidesWith(shared_ptr<SFAsset>);
   virtual shared_ptr<SFBoundingBox> GetBoundingBox();
   int getAssetWidth();

@@ -49,6 +49,24 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
 SFApp::~SFApp() {
 }
 
+void SFApp::ScreenWrite(string myText, SDL_Color text_color) {
+   TTF_Font* font = TTF_OpenFont("assets/ASMAN.ttf", 24);
+
+
+   //const char *cchar = myText.c_str(); 
+   const char * cchar = "hi";
+   SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, cchar , text_color);
+   SDL_Texture* Message = SDL_CreateTextureFromSurface(sf_window->getRenderer(), surfaceMessage);
+
+   SDL_Rect Message_rect;
+   Message_rect.x = 0;
+   Message_rect.y = 0;
+   Message_rect.w = 680;
+   Message_rect.h = 100;
+
+   SDL_RenderCopy(sf_window->getRenderer(), Message, NULL, &Message_rect);
+ }
+
 /**
  * Handle all events that come from SDL.
  * These are timer or keyboard events.
@@ -173,6 +191,8 @@ void SFApp::OnUpdateWorld() {
         a->HandleCollision();
         Mix_PlayChannel(-1, deadAlien, 0);
         score += 100;
+        string text = "You killed an alien! +100 score. Your current score: " + score;
+        ScreenWrite(text, {255, 0, 0});
         cout << "You killed an alien! +100 score" << endl;
         cout << "Your current score: " << score << endl;
         cout << "------------------------------" << endl;
