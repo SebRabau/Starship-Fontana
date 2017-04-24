@@ -143,6 +143,10 @@ void SFApp::OnUpdateWorld() {
     c->GoSouth();
   }
 
+  for(auto b: alienBombs) {
+    b->GoSouth();
+  }
+
   // Update enemy positions
   for(auto a : aliens) {
     // do something here
@@ -165,11 +169,17 @@ void SFApp::OnUpdateWorld() {
         cout << "You killed an alien! +100 score" << endl;
         cout << "Your current score: " << score << endl;
         cout << "------------------------------" << endl;
+
+        auto alienBomb = make_shared<SFAsset>(SFASSET_ALIEN_BOMB,sf_window); //Drop Bomb on death
+        srand(time(NULL));
+        auto alien_bomb_pos = Point2(rand() % (640 - alienBomb->getAssetWidth()) + alienBomb->getAssetWidth(), 480);
+        alienBomb->SetPosition(alien_bomb_pos);
+        alienBombs.push_back(alienBomb);
       }
     }
   }
 
-  for(auto a : aliens) {
+   for(auto a : aliens) {
     if(player->CollidesWith(a)) {
       player->SetNotAlive();
     }
@@ -205,6 +215,16 @@ void SFApp::OnUpdateWorld() {
     }
     coins.clear();
     coins = list<shared_ptr<SFAsset>>(rdc);
+
+    // remove dead alien bombs
+  list<shared_ptr<SFAsset>> rdb;
+    for(auto b : alienBombs) {
+      if(b->IsAlive()) {
+        rdb.push_back(b);
+      }
+    }
+    alienBombs.clear();
+    alienBombs = list<shared_ptr<SFAsset>>(rdb);
 
     // remove dead projectiles
   list<shared_ptr<SFAsset>> rdp;
@@ -245,6 +265,10 @@ void SFApp::OnRender() {
     if(c->IsAlive()) {c->OnRender();}
   }
 
+  for(auto b: alienBombs) {
+    b->OnRender();
+  }
+
   // Game Over Screens
   if (player->CollidesWith(bomb)) {
     
@@ -257,9 +281,22 @@ void SFApp::OnRender() {
     player->SetPosition(player_pos);
   }
 
+for(auto b: alienBombs) {
+  if (player->CollidesWith(b)) {
+    b->SetNotAlive();
+    Mix_PlayChannel(-1, explosion, 0);
+    lives -= 1;
+    score -= 100;
+    cout << "You have lost a life!! You have " << lives << " life points remaining. -100 score" << endl;
+    cout << "Your current score: " << score << endl; 
+    cout << "------------------------------" << endl;;   
+    player->SetPosition(player_pos);
+  }
+}
+
   for(auto a : aliens) {
     if(player->CollidesWith(a)) {
-      Mix_PlayChannel(-1, explosion, 0);
+      Mix_PlayChannel(-1, deadAlien, 0);
       lives -= 1;
       score -= 100;
       cout << "You have lost a life!! You have " << lives << " life points remaining. -100 score" << endl;

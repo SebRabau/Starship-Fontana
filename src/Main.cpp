@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h> // Pull in the SDL definitions
 #include <memory>     // Pull in std::shared_ptr
+//#include <SDL_tff.h>
 
 using namespace std;  // So that we can write `vector` rather than `std::vector`
 
@@ -38,6 +39,14 @@ SFError InitGraphics() {
     cerr << "Failed to initialise SDL Audio" << endl;
     throw SF_ERROR_INIT;
   }
+
+  // Initialize SDL_ttf library
+   /*if (TTF_Init() != 0)
+   {
+      cerr << "TTF_Init() Failed: " << TTF_GetError() << endl;
+      SDL_Quit();
+      exit(1);
+   }*/
 
   // Create a new window
   g_window = SDL_CreateWindow("StarShip Fontana"

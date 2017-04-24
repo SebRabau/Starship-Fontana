@@ -7,6 +7,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+//#include <SDL_tff.h>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ using namespace std;
  * enum to mark the type of the SFAsset.  If we add more asset types then
  * the subclassing strategy becomes a better option.
  */
-enum SFASSETTYPE {SFASSET_DEAD, SFASSET_PLAYER, SFASSET_PROJECTILE, SFASSET_ALIEN, SFASSET_COIN, SFASSET_BACKGROUND, SFASSET_BOMB, SFASSET_GAME_OVER};
+enum SFASSETTYPE {SFASSET_DEAD, SFASSET_PLAYER, SFASSET_PROJECTILE, SFASSET_ALIEN, SFASSET_COIN, SFASSET_BACKGROUND, SFASSET_BOMB, SFASSET_GAME_OVER, SFASSET_ALIEN_BOMB};
 
 class SFAsset {
 public:
@@ -45,7 +46,7 @@ public:
   virtual void      SetNotAlive();
   virtual bool      IsAlive();
   virtual void      HandleCollision();
-
+  //virtual void      ScreenWrite(string, SDL_Color);
   virtual bool                      CollidesWith(shared_ptr<SFAsset>);
   virtual shared_ptr<SFBoundingBox> GetBoundingBox();
   int getAssetWidth();

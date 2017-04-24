@@ -36,6 +36,7 @@ private:
 
   shared_ptr<SFWindow>       sf_window;
   shared_ptr<SFAsset>        bomb;
+  list<shared_ptr<SFAsset> > alienBombs;
   shared_ptr<SFAsset>        backgroundSF;
   shared_ptr<SFAsset>        GAMEOVER;
   shared_ptr<SFAsset>        player;

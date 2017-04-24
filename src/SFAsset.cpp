@@ -28,6 +28,9 @@ SFAsset::SFAsset(SFASSETTYPE type, std::shared_ptr<SFWindow> window): type(type)
   case SFASSET_GAME_OVER:
     sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/GameOver.png");
     break;
+  case SFASSET_ALIEN_BOMB:
+    sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/alienBomb.png");
+    break;
   }
 
   if(!sprite) {
@@ -220,3 +223,9 @@ void SFAsset::HandleCollision() {
  */ 
    SetNotAlive();
  }
+
+ /*void SFAsset::ScreenWrite(string myText, SDL_Color text_color) {
+   SDL_Surface *text;
+   font = TTF_OpenFont("FreeSans.ttf", 24);
+   text = TTF_RenderText_Solid(font, myText, text_color);
+ }*/
