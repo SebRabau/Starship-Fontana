@@ -7,7 +7,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-//#include <SDL_tff.h>
+#include <SDL2/SDL_tff.h>
 
 using namespace std;
 
@@ -39,6 +39,7 @@ public:
   virtual void      GoWest();
   virtual void      AlienGoEast();
   virtual void      AlienGoWest();
+  virtual void      BombGoSouth();
   virtual void      GoNorth();
   virtual void      GoSouth();
   virtual void      PlayerGoNorth();

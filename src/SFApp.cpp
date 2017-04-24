@@ -144,17 +144,24 @@ void SFApp::OnUpdateWorld() {
   }
 
   for(auto b: alienBombs) {
-    b->GoSouth();
+    b->BombGoSouth();
   }
 
   // Update enemy positions
   for(auto a : aliens) {
+    
     // do something here
     if (right) {
       a->AlienGoWest();
     }
     if (left) {
       a->AlienGoEast();
+    }
+    if (rand() % 1000 <= 0.01) {
+      auto alienBomb = make_shared<SFAsset>(SFASSET_ALIEN_BOMB,sf_window); //Drop Bomb on death
+      auto alien_bomb_pos = a->GetPosition();
+      alienBomb->SetPosition(alien_bomb_pos);
+      alienBombs.push_back(alienBomb);
     }
   }
 
@@ -169,12 +176,6 @@ void SFApp::OnUpdateWorld() {
         cout << "You killed an alien! +100 score" << endl;
         cout << "Your current score: " << score << endl;
         cout << "------------------------------" << endl;
-
-        auto alienBomb = make_shared<SFAsset>(SFASSET_ALIEN_BOMB,sf_window); //Drop Bomb on death
-        srand(time(NULL));
-        auto alien_bomb_pos = Point2(rand() % (640 - alienBomb->getAssetWidth()) + alienBomb->getAssetWidth(), 480);
-        alienBomb->SetPosition(alien_bomb_pos);
-        alienBombs.push_back(alienBomb);
       }
     }
   }

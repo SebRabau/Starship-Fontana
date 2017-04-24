@@ -189,6 +189,12 @@ void SFAsset::GoSouth() {
   bbox->centre = make_shared<Vector2>(c);
 }
 
+void SFAsset::BombGoSouth() {
+  Vector2 c = *(bbox->centre) + Vector2(0.0f, -1.5f);
+  bbox->centre.reset();
+  bbox->centre = make_shared<Vector2>(c);
+}
+
 void SFAsset::PlayerGoSouth() {
   int w, h;
   SDL_GetRendererOutputSize(sf_window->getRenderer(), &w, &h);
@@ -224,8 +230,8 @@ void SFAsset::HandleCollision() {
    SetNotAlive();
  }
 
- /*void SFAsset::ScreenWrite(string myText, SDL_Color text_color) {
+ void SFAsset::ScreenWrite(string myText, SDL_Color text_color) {
    SDL_Surface *text;
    font = TTF_OpenFont("FreeSans.ttf", 24);
    text = TTF_RenderText_Solid(font, myText, text_color);
- }*/
+ }
