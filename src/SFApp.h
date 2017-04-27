@@ -55,5 +55,7 @@ private:
   Mix_Chunk *deadAlien;
   Mix_Chunk *explosion;
   Mix_Chunk *coinSound;
+  Mix_Chunk *youWin;
+  Mix_Chunk *loser;
 };
 #endif

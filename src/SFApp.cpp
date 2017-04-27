@@ -47,7 +47,10 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
   gunFire = Mix_LoadWAV("assets/Gun.wav");
   deadAlien = Mix_LoadWAV("assets/GlassBreak.wav");
   explosion = Mix_LoadWAV("assets/Explosion.wav");
-  coinSound = Mix_LoadWAV("assets/Coin.wav");
+  coinSound = Mix_LoadWAV("assets/Achievement.wav");
+  youWin = Mix_LoadWAV("assets/YouWin.wav");
+  loser = Mix_LoadWAV("assets/LoseSound.wav");
+
 }
 
 SFApp::~SFApp() {
@@ -335,6 +338,7 @@ for(auto b: alienBombs) {
     while (lives == 0) {
       lives--;
       cout << "You have lost the game.... You finished with " << score << " points" << endl;
+      Mix_PlayChannel(-1, loser, 0);
     }    
   }  
 
@@ -345,6 +349,7 @@ for(auto b: alienBombs) {
     if (completed) {
       cout << "You have won the game! You finished with " << score << " points" << endl;
       completed = false;
+      Mix_PlayChannel(-1, youWin, 0);
     }
   }
 
