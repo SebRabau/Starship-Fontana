@@ -1,6 +1,6 @@
 #include "SFApp.h"
 
-SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_window(window), lives(3), score(0), continueGame(true) {
+SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_window(window), lives(3), score(0), continueGame(true), completed(true) {
   int canvas_w, canvas_h;
   SDL_GetRendererOutputSize(sf_window->getRenderer(), &canvas_w, &canvas_h);
 
@@ -11,6 +11,10 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
   GAMEOVER  = make_shared<SFAsset>(SFASSET_GAME_OVER, sf_window);
   auto GAMEOVER_pos = Point2(canvas_w/2, canvas_h/2);
   GAMEOVER->SetPosition(GAMEOVER_pos);
+
+  YOUWIN  = make_shared<SFAsset>(SFASSET_YOU_WIN, sf_window);
+  auto YOUWIN_pos = Point2(canvas_w/2, canvas_h/2);
+  YOUWIN->SetPosition(YOUWIN_pos);
 
   app_box = make_shared<SFBoundingBox>(Vector2(canvas_w, canvas_h), canvas_w, canvas_h);
 
@@ -50,18 +54,16 @@ SFApp::~SFApp() {
 }
 
 void SFApp::ScreenWrite(string myText, SDL_Color text_color) {
-   TTF_Font* font = TTF_OpenFont("assets/ASMAN.ttf", 24);
+   TTF_Font* font = TTF_OpenFont("assets/ASMAN.TTF", 24);
 
-
-   //const char *cchar = myText.c_str(); 
-   const char * cchar = "hi";
+   const char *cchar = myText.c_str(); 
    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, cchar , text_color);
    SDL_Texture* Message = SDL_CreateTextureFromSurface(sf_window->getRenderer(), surfaceMessage);
 
    SDL_Rect Message_rect;
-   Message_rect.x = 0;
-   Message_rect.y = 0;
-   Message_rect.w = 680;
+   Message_rect.x = 320;
+   Message_rect.y = 240;
+   Message_rect.w = 100;
    Message_rect.h = 100;
 
    SDL_RenderCopy(sf_window->getRenderer(), Message, NULL, &Message_rect);
@@ -332,12 +334,18 @@ for(auto b: alienBombs) {
     continueGame = false;
     while (lives == 0) {
       lives--;
-      cout << "You have lost the game.... You finsihed with " << score << " points" << endl;
+      cout << "You have lost the game.... You finished with " << score << " points" << endl;
     }    
   }  
 
   if ((aliens.size() == 0)) {
     //You Win
+    YOUWIN->OnRender();
+    continueGame = false;
+    if (completed) {
+      cout << "You have won the game! You finished with " << score << " points" << endl;
+      completed = false;
+    }
   }
 
   // Switch the off-screen buffer to be on-screen

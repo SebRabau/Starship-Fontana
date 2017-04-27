@@ -33,13 +33,14 @@ public:
 private:
   bool                    is_running;
 
-  bool left = false, right = false, up = false, down = false, fireEnable = false, continueGame;
+  bool left = false, right = false, up = false, down = false, fireEnable = false, continueGame, completed;
 
   shared_ptr<SFWindow>       sf_window;
   shared_ptr<SFAsset>        bomb;
   list<shared_ptr<SFAsset> > alienBombs;
   shared_ptr<SFAsset>        backgroundSF;
   shared_ptr<SFAsset>        GAMEOVER;
+  shared_ptr<SFAsset>        YOUWIN;
   shared_ptr<SFAsset>        player;
   shared_ptr<SFBoundingBox>  app_box;
   list<shared_ptr<SFAsset> > projectiles;
